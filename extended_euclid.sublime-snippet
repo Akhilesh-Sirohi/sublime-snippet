@@ -1,0 +1,29 @@
+<snippet>
+	<content><![CDATA[
+
+/*this function returns gcd of a,b and changes x,y
+such that=> ax+by=gcd(a,b);*/
+
+int ex_GCD (int a, int b, int & x, int & y) {
+	if (a == 0) {
+		x = 0; y = 1;
+		return b;
+	}
+	int x1, y1;
+	int d = ex_GCD (b%a, a, x1, y1);
+	x = y1 - (b / a) * x1;
+	y = x1;
+	return d;
+	/*This is a recursive function, which still returns a value GCD of the numbers aand b, but apart from that - as required coefficients x, and yas a function of parameters passed by reference.
+
+	The recursion base is case a = 0. Then the gcd is equal b, and, obviously, the required coefficients xand yare equal 0and, onerespectively. In other cases, the usual solution works, and the coefficients are recalculated using the above formulas.
+
+	Extended Euclid's algorithm in this implementation works correctly even for negative numbers.*/
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>ex_GCD</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

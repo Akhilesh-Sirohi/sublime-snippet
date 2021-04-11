@@ -1,0 +1,55 @@
+<snippet>
+	<content><![CDATA[
+/*this function returns gcd of a,b and changes x,y
+such that=> ax+by=gcd(a,b);*/
+
+int ex_GCD (int a, int b, int & x, int & y) {
+	if (a == 0) {
+		x = 0; y = 1;
+		return b;
+	}
+	int x1, y1;
+	int d = ex_GCD (b%a, a, x1, y1);
+	x = y1 - (b / a) * x1;
+	y = x1;
+	return d;
+	/*This is a recursive function, which still returns a value GCD of the numbers aand b, but apart from that - as required coefficients x, and yas a function of parameters passed by reference.
+
+	The recursion base is case a = 0. Then the gcd is equal b, and, obviously, the required coefficients xand yare equal 0and, onerespectively. In other cases, the usual solution works, and the coefficients are recalculated using the above formulas.
+
+	Extended Euclid's algorithm in this implementation works correctly even for negative numbers.*/
+}
+int LCM;
+bool CRT(int n1,int n2,int a1,int a2, int &x){
+	/*
+		x%n1=a1 && x%n2=a2 => n1 and n2 may not be coprime
+		x will be +ve and less than lcm
+	*/
+	int x1,y1;
+	int d=ex_GCD(n1,n2,x1,y1);
+	if((a2-a1)%d!=0) return 0; //no solution
+	LCM=n1*n2/d;
+	x=(a1+(((x1*((a2-a1)/d))%LCM)*n1)%LCM +LCM)%LCM;
+	return 1;	
+}
+
+/*bool CRT1(vector<int>n,vector<int>a,int &x){
+	//x%n[i]=a[i];
+	x=a[0]%n[0]; //works as a1
+	LCM=n[1];//=> works as n1
+	for(int i=1;i<a.size();i++){
+		a[i]=a[i]%n[i];
+		if(!CRT(LCM,n[i],x,a[i],x)) return 0;
+	}
+	return 1;
+}*/
+
+
+
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>chinese_remainder_theorem</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

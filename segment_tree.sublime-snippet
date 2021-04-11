@@ -1,0 +1,61 @@
+<snippet>
+	<content><![CDATA[
+class Segment {
+public:
+    vector<int>Seg;
+    int n;
+    Segment(vector<int>& nums) {
+        n=nums.size();
+        //n leaf, n-1 internal node (sum of gp of 2 upto kth level is 2^k -1);
+        if(n!=0){
+            int x=ceil(log2(n));
+            Seg.clear();
+            Seg.resize(pow(2,x+1)-1);
+            construct(nums,0,0,n-1);
+        }
+    }
+    int construct(vector<int>&nums,int i,int start, int end){
+        if(start==end){
+            Seg[i]=nums[start];
+            return Seg[i];
+        }
+        int mid=(start+end)/2;
+        //left child is at 2i+1, right at 2i+2 => 
+        //node->val =node->left->val+ node->right->val;
+        Seg[i]=construct(nums,2*i+1,start,mid)+
+        		construct(nums,2*i+2,mid+1,end);
+        return Seg[i];
+    }
+    //change value of index j to val 0 based
+    void update(int j, int val) {
+    	change(0,0,n-1,j,val);
+    }
+    void change(int i,int start,int end,int j,int val){
+    	if(start==end){
+    		Seg[i]=val;
+    		return;
+    	}
+    	int mid=(start+end)/2;
+    	if(j>mid) change(2*i+2,mid+1,end,j,val);
+    	if(j<=mid) change(2*i+1,start,mid,j,val);
+    	Seg[i]=Seg[2*i+1]+Seg[2*i+2];
+    }
+    //get sum b/w left and right
+    int get(int left, int right) {
+        return calcSum(0,0,n-1,left,right);
+    }
+    //calculate sum b/w left and right [0] baser
+    int calcSum(int i, int start, int end, int left,int right){
+        if(left<=start && right>=end) return Seg[i];
+        if(left>end or right<start) return 0;
+        int mid=(start+end)/2;
+        return calcSum(2*i+1,start,mid,left,right)+
+        	calcSum(2*i+2,mid+1,end,left,right);
+    }
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>tree_segment</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,22 @@
+<snippet>
+	<content><![CDATA[
+int Parent(vector<int>&A, int i){
+	while(A[i]!=i) i=A[i];
+	return i;
+}
+void setParent(vector<int>&A, int p, int i){
+	while(A[i]!=i){
+		int x=A[i];
+		A[i]=p;
+		i=x;
+	}
+	A[i]=p;
+}
+vector<int>P(n);
+iota(P.begin(),P.end(),0);
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>disjoint</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

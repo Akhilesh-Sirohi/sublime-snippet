@@ -1,0 +1,36 @@
+<snippet>
+	<content><![CDATA[
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+#define pi 3.14159265358979323846
+const int M = 1e9+7;
+const int Max=2e5+5;
+int product(vector<int>&A){
+	int ans=1;
+	for(int a:A) ans=(a*ans)%M;
+	return ans;
+}
+
+void solve(){
+	int n;
+}
+signed main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	#ifndef ONLINE_JUDGE
+		freopen("input.txt", "r", stdin);
+		freopen("output.txt", "w", stdout);
+	#endif
+	int t;
+	cin>>t;
+	while(t--) {
+		solve();
+	}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>cpp-testcase</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

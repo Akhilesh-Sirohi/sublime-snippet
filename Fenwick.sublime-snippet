@@ -1,0 +1,48 @@
+<snippet>
+	<content><![CDATA[
+//all are index are 1 based
+class Fenwick{
+	public:
+		vector<int>F;
+		Fenwick(vector<int>&A){
+			int n=A.size();
+			F.resize(n+1);
+			vector<int>Sum(n+1);
+			for(int i=1;i<=n;i++) Sum[i]=Sum[i-1]+A[i-1];
+			for(int i=1;i<=n;i++){
+				//i will to store sum for i-lower_bit(i) to i
+				F[i]=Sum[i]-Sum[i-lower_bit(i)];
+			}
+		}
+		//returns lowerbit
+		int lower_bit(int j) {return (j&(-j));}
+
+		//construct the tree
+
+		//j is 1 based,  add delta to update
+		void update(int j,int delta){
+	        if(j>=F.size()) return;
+	        F[j]+=delta;
+	        update(j+lower_bit(j),delta);
+        }
+
+        //sum from index [1,j] //1 based
+	    int sum(int j){
+	        if(j==0) return F[0];
+	        return F[j]+sum(j-lower_bit(j));
+	    }
+
+        //to get sum b/w index [i,j] //1 based
+	    int get(int i,int j){
+	        return sum(j)-sum(i-1);
+	    }
+}; //all are index are 1 based
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	
+	<tabTrigger>tree_fenwick</tabTrigger>
+	
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
+

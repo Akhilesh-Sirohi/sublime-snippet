@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+vector<int>Prime;
+void Seive(){
+    int Max=${1:2e5}+5;
+    vector<bool>isPrime(Max,1);
+    isPrime[1]=0;
+    for(int i=2;i<Max;i++){
+        if(!isPrime[i]) continue;
+        Prime.push_back(i);
+        for(int j=i*i;j<Max;j+=i) isPrime[j]=0;
+    }
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>seive</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+
+//saves 1 prime factor in Factor
+vector<int>Factor;
+void Seive(){
+    Factor.resize(Max);
+    for(int i=1;i<Max;i++) Factor[i]=i;
+    for(int i=2;i<Max;i++){
+        if(Factor[i]==i){
+        	for(int j=i*i;j<Max;j+=i) Factor[j]=i;
+        }
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>factor</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
