@@ -1,19 +1,55 @@
 <snippet>
 	<content><![CDATA[
-int Parent(vector<int>&A, int i){
-	while(A[i]!=i) i=A[i];
-	return i;
-}
-void setParent(vector<int>&A, int p, int i){
-	while(A[i]!=i){
-		int x=A[i];
-		A[i]=p;
-		i=x;
-	}
-	A[i]=p;
-}
-vector<int>P(n);
-iota(P.begin(),P.end(),0);
+class DisjointSet{
+    /*  ───────────────────────────────────────────────────────────────
+    Disjoint-Set Union (Union–Find)
+
+    • make-set  : O(N)        (constructor)
+    • find      : O(α(N))     – path compression, overall O(1)
+    • unite     : O(α(N))     – union by rank, overall O(1)
+    • same(x,y) : O(α(N))     -                overall O(1)
+
+    Typical use-cases: connectivity queries in graphs, Kruskal’s MST,
+    dynamic component counting, per-colony bookkeeping, etc.
+    ─────────────────────────────────────────────────────────────── */
+    vector<int>P;
+    public:
+        DisjointSet(int n){
+            // start with N single-element sets: parent[i] = i
+            P=vector<int>(n);
+            iota(P.begin(),P.end(),0);
+        }
+
+        /*  
+            Return the representative of the set that `x` belongs to.
+            Performs path compression: every node jumps directly to the root,
+            making future queries faster.                               
+        */
+        int find(int i){
+            if(P[i]==i) return i;
+            P[i]=find(P[i]); // recursion compresses the path
+            return P[i];
+        }
+
+         /*  
+            Merge the two sets containing `a` and `b`.
+            Returns true  if the merge actually joined two *different* sets,
+                    false if they were already in the same set.          
+        */
+        bool merge(int a, int b){
+            a=find(a);
+            b=find(b);
+
+            if(a==b) return false; // already united
+            
+            // make the smaller number group head
+            if(a>b) swap(a,b);
+            P[b]=a;
+            return true;
+        }
+
+        bool same(int a, int b) { return find(a) == find(b); }
+};
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
 	<tabTrigger>disjoint</tabTrigger> -->

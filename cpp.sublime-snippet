@@ -6,11 +6,7 @@ using namespace std;
 #define pi 3.14159265358979323846
 const int M = 1e9+7;
 const int Max=2e5+5;
-int product(vector<int>&A){
-	int ans=1;
-	for(int a:A) ans=(a*ans)%M;
-	return ans;
-}
+void print()
 
 void solve(){
 	int n;
